@@ -8,15 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "color.h"
 
 void exec (char *cmd) {
   int status = system(cmd);
 
-  if (status == -1) {
-    perror("system");
-  }
+  assert(status != -1);
 }
 
 void color (short color) {
@@ -38,14 +37,14 @@ void bg (short color) {
   exec(dest);
 }
 
-void bold (void) {
+inline void bold (void) {
   exec("tput bold");
 }
 
-void underline (void) {
+inline void underline (void) {
   exec("tput smul");
 }
 
-void color_reset (void) {
+inline void color_reset (void) {
   exec("printf '\e[0m'");
 }
